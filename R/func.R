@@ -31,8 +31,8 @@ cordist_netConstruct <- function(dat, powr) {
   
   heatmap_indices <- sample(nrow(sim_matrix), 500)
   
-  heatmap.2(t(sim_matrix[heatmap_indices, heatmap_indices]),
-            col=redgreen(75),
+  gplots::heatmap.2(t(sim_matrix[heatmap_indices, heatmap_indices]),
+            col=gplots::redgreen(75),
             labRow=NA, labCol=NA, 
             trace='none', dendrogram='row',
             xlab='Gene', ylab='Gene',
@@ -42,7 +42,7 @@ cordist_netConstruct <- function(dat, powr) {
   dev.off()
   
   # Construct adjacency matrix
-  adj_matrix <- adjacency.fromSimilarity(sim_matrix, power=powr, type='signed')
+  adj_matrix <- WGCNA::adjacency.fromSimilarity(sim_matrix, power=powr, type='signed')
   
   # Delete similarity matrix to free up memory
   rm(sim_matrix)
@@ -59,8 +59,8 @@ cordist_netConstruct <- function(dat, powr) {
   # Same plot as before, but now for our adjacency matrix:
   pdf(file = paste("figs/", deparse(substitute(dat)), "_adj_matrix.pdf", sep = ""))
 
-  heatmap.2(t(adj_matrix[heatmap_indices, heatmap_indices]),
-            col=redgreen(75),
+  gplots::heatmap.2(t(adj_matrix[heatmap_indices, heatmap_indices]),
+            col=gplots::redgreen(75),
             labRow=NA, labCol=NA,
             trace='none', dendrogram='row',
             xlab='Gene', ylab='Gene',
@@ -69,11 +69,11 @@ cordist_netConstruct <- function(dat, powr) {
 
   dev.off()
   
-  TOM = TOMsimilarity(adj_matrix);
-  dissTOM = 1-TOM
-  rownames(dissTOM) <- gene_ids
-  colnames(dissTOM) <- gene_ids
-  saveRDS(dissTOM, file = paste("output/", deparse(substitute(dat)), "_TOM.rds", sep = ""))
+  # TOM = TOMsimilarity(adj_matrix);
+  # dissTOM = 1-TOM
+  # rownames(dissTOM) <- gene_ids
+  # colnames(dissTOM) <- gene_ids
+  # saveRDS(dissTOM, file = paste("output/", deparse(substitute(dat)), "_TOM.rds", sep = ""))
   
   # Detect Co-expression Modules:
   
@@ -82,12 +82,12 @@ cordist_netConstruct <- function(dat, powr) {
   # For input, we use the reciprocal of the adjacency matrix; hierarchical
   # clustering works by comparing the _distance_ between objects instead of the
   # _similarity_.
-  # gene_tree <- hclust(as.dist(1 - adj_matrix), method="average")
-  gene_tree <- hclust(as.dist(dissTOM), method="average")
+  gene_tree <- hclust(as.dist(1 - adj_matrix), method="average")
+  # gene_tree <- hclust(as.dist(dissTOM), method="average")
   
   # we will use the cuttreeDynamicTree method to break apart the hc dendrogram
   # into separate modules
-  module_labels <- cutreeDynamicTree(dendro=gene_tree, minModuleSize=100,
+  module_labels <- dynamicTreeCut::cutreeDynamicTree(dendro=gene_tree, minModuleSize=100,
                                      # distM = dissTOM,
                                          deepSplit=FALSE)
   gc()

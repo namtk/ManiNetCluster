@@ -7,7 +7,7 @@ day_module_labels <- cordist_netConstruct(dayExpr, 20)
 names(day_module_labels) <- colnames(dayExpr)
 
 # assign a color to each module for easier visualization and referencing
-day_module_colors <- labels2colors(day_module_labels)
+day_module_colors <- WGCNA::labels2colors(day_module_labels)
 names(day_module_colors) <- colnames(dayExpr)
 
 # night_adj_mat <- matrix(, nrow = nGenes, ncol = nGenes)
