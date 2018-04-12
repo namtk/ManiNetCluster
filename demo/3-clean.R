@@ -40,10 +40,10 @@ heatmap.2(cor(t(datExpr0)), RowSideColors = sampleColors,
 # Filter Low Count: Remove all rows with less than 1 counts across all samples.
 # 1 is an arbitrary value and low count filtering for RNA-Seq data should be done more precisely using some probabilistic approach, e.g.
 # a density plot of RPKM which leads to a decision of cutoff value.
-low_count_mask <- colSums(datExpr0) < 1
-
+low_count_mask <- colSums(datExpr0) < 10
 sprintf("Removing %d low-count genes (%d remaining).", sum(low_count_mask), 
         sum(!low_count_mask))
+datExpr0 <- datExpr0[, !low_count_mask]
 
 # Log2 Transformation:
 # 
