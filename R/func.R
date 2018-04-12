@@ -3,6 +3,9 @@
 #' Euclidean distance.
 #' 
 #' Note that: dat is a data matrix with observations as columns (samples) and features as rows (genes)
+#' @param 
+#' @return 
+#' @export 
 cordist <- function(dat) {
   cor_matrix  <- cor(t(dat))
   
@@ -13,7 +16,9 @@ cordist <- function(dat) {
   sign(cor_matrix) * ((abs(cor_matrix) + dist_matrix)/ 2)
 }
 
-
+#' @param 
+#' @return 
+#' @export 
 cordist_netConstruct <- function(dat, powr) {
   # Construct similarity matrix using cordist function (combination of both Pearson correlation and Euclidian distance)
   sim_matrix <- cordist(t(dat))
@@ -89,7 +94,9 @@ cordist_netConstruct <- function(dat, powr) {
   return(module_labels)
 }
 
-
+#' @param 
+#' @return 
+#' @export 
 findSharedGenes <- function(cormat) {
   
   shared_genes <- vector(mode = "list", length = nrow(cormat))
@@ -110,7 +117,9 @@ findSharedGenes <- function(cormat) {
   return(shared_genes)
 }
 
-
+#' @param 
+#' @return 
+#' @export 
 listModules <- function(module_labels) {
   modules <- list()
   
@@ -162,6 +171,9 @@ listModules <- function(module_labels) {
 #' Returns
 #' -------
 #' An igraph graph object representing the exported graph.
+#' @param 
+#' @return 
+#' @export 
 export_network_to_graphml <- function (adj_mat, filename=NULL, weighted=TRUE,
                                        threshold=0.5, max_edge_ratio=3,
                                        nodeAttr=NULL, nodeAttrDataFrame=NULL,

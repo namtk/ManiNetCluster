@@ -1,5 +1,7 @@
 # Display The dendrogram together with the color assignment
-
+#' @param 
+#' @return 
+#' @export 
 plot_dendro <- function(net) {
   # open a graphics window
   sizeGrWindow(12, 9)
@@ -16,7 +18,9 @@ plot_dendro <- function(net) {
   dev.off()
 }
 
-
+#' @param 
+#' @return 
+#' @export 
 plot_MEs <- function(MEs, module_colors) {
   colors <- rownames(table(module_colors))
   
@@ -44,7 +48,9 @@ plot_MEs <- function(MEs, module_colors) {
   ggsave(paste("figs/", deparse(substitute(MEs)), "_plot.pdf", sep = ""))
 }
 
-
+#' @param 
+#' @return 
+#' @export 
 plot_MEs_sep <- function(MEs) {
   numPlots = length(MEs)
   fpath <- file.path("figs", deparse(substitute(MEs)))
