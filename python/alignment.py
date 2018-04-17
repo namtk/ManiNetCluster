@@ -1,8 +1,8 @@
 ''' Alignment techniques '''
 import numpy as np
 import scipy as sp
-from neighborhood import laplacian
-from util import block_antidiag
+# from neighborhood import laplacian
+# from util import block_antidiag
 
 from functools import reduce
 

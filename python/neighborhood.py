@@ -1,4 +1,4 @@
-from distance import SquaredL2
+# from distance import SquaredL2
 import numpy as np
 
 
@@ -51,17 +51,17 @@ def laplacian(W, normed=False, return_diag=False):
   return lap
 
 
-if __name__ == '__main__':
-  from matplotlib import pyplot
-  from synthetic_data import cylinder
-  n,k = 300,5
-  X = cylinder(np.linspace(0,4,n))
-  adj = neighbor_graph(X=X,k=k)
-  L = laplacian(adj,normed=False)
-  Lhk = laplacian(adj,normed=True)
-  _,axes = pyplot.subplots(1,3)
-  labels = ('neighbors', 'laplacian', 'normed laplacian')
-  for axis,mat,label in zip(axes.flat,(adj,L,Lhk),labels):
-    axis.imshow(mat, interpolation='nearest')
-    axis.set_title(label)
-  pyplot.show()
+# if __name__ == '__main__':
+#   from matplotlib import pyplot
+#   from synthetic_data import cylinder
+#   n,k = 300,5
+#   X = cylinder(np.linspace(0,4,n))
+#   adj = neighbor_graph(X=X,k=k)
+#   L = laplacian(adj,normed=False)
+#   Lhk = laplacian(adj,normed=True)
+#   _,axes = pyplot.subplots(1,3)
+#   labels = ('neighbors', 'laplacian', 'normed laplacian')
+#   for axis,mat,label in zip(axes.flat,(adj,L,Lhk),labels):
+#     axis.imshow(mat, interpolation='nearest')
+#     axis.set_title(label)
+#   pyplot.show()

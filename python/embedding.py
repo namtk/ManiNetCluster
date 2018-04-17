@@ -1,7 +1,7 @@
 import numpy as np
 import scipy as sp
 from sklearn.manifold import Isomap,LocallyLinearEmbedding
-from neighborhood import neighbor_graph,laplacian
+# from neighborhood import neighbor_graph,laplacian
 
 
 def lapeig(W=None, L=None, num_vecs=None, return_vals=False):
@@ -59,41 +59,41 @@ def slow_features(X=None,num_vecs=None):
   return vecs
 
 
-if __name__ == '__main__':
-  # simple usage example / visual test case
-  from matplotlib import pyplot
-  from viz import show_neighbor_graph
-  from util import Timer
-  from correspondence import Correspondence
-  from synthetic_data import cylinder
-
-  n = 300
-  knn = 5
-  out_dim = 2
-
-  X = cylinder(np.linspace(0,4,n))
-  W = neighbor_graph(X=X,k=knn)
-  corr = Correspondence(matrix=W)
-
-  with Timer('LapEig'):
-    le_embed = lapeig(W=W, num_vecs=out_dim)
-  with Timer('Linear LapEig'):
-    # lapeig_linear returns a projector, not an embedding
-    lel_embed = np.dot(X, lapeig_linear(X=X, W=W, num_vecs=out_dim, k=knn))
-  with Timer('Isomap'):
-    im_embed = isomap(X=X, num_vecs=out_dim, k=knn)
-  with Timer('LLE'):
-    lle_embed = lle(X=X, num_vecs=out_dim, k=knn)
-  with Timer('SFA'):
-    sfa_embed = np.dot(X, slow_features(X=X, num_vecs=out_dim))
-
-  show_neighbor_graph(X, corr, 'Original space')
-
-  fig, axes = pyplot.subplots(nrows=3,ncols=2)
-  fig.tight_layout()  # spaces the subplots better
-  show_neighbor_graph(le_embed, corr, 'Laplacian Eigenmaps', ax=axes[0,0])
-  show_neighbor_graph(lel_embed, corr, 'Linear Laplacian Eigenmaps', ax=axes[0,1])
-  show_neighbor_graph(im_embed, corr, 'Isomap', ax=axes[1,0])
-  show_neighbor_graph(lle_embed, corr, 'Locally Linear Embedding', ax=axes[1,1])
-  show_neighbor_graph(sfa_embed, corr, 'Slow Features Embedding', ax=axes[2,0])
-  pyplot.show()
+# if __name__ == '__main__':
+#   # simple usage example / visual test case
+#   from matplotlib import pyplot
+#   from viz import show_neighbor_graph
+#   from util import Timer
+#   from correspondence import Correspondence
+#   from synthetic_data import cylinder
+# 
+#   n = 300
+#   knn = 5
+#   out_dim = 2
+# 
+#   X = cylinder(np.linspace(0,4,n))
+#   W = neighbor_graph(X=X,k=knn)
+#   corr = Correspondence(matrix=W)
+# 
+#   with Timer('LapEig'):
+#     le_embed = lapeig(W=W, num_vecs=out_dim)
+#   with Timer('Linear LapEig'):
+#     # lapeig_linear returns a projector, not an embedding
+#     lel_embed = np.dot(X, lapeig_linear(X=X, W=W, num_vecs=out_dim, k=knn))
+#   with Timer('Isomap'):
+#     im_embed = isomap(X=X, num_vecs=out_dim, k=knn)
+#   with Timer('LLE'):
+#     lle_embed = lle(X=X, num_vecs=out_dim, k=knn)
+#   with Timer('SFA'):
+#     sfa_embed = np.dot(X, slow_features(X=X, num_vecs=out_dim))
+# 
+#   show_neighbor_graph(X, corr, 'Original space')
+# 
+#   fig, axes = pyplot.subplots(nrows=3,ncols=2)
+#   fig.tight_layout()  # spaces the subplots better
+#   show_neighbor_graph(le_embed, corr, 'Laplacian Eigenmaps', ax=axes[0,0])
+#   show_neighbor_graph(lel_embed, corr, 'Linear Laplacian Eigenmaps', ax=axes[0,1])
+#   show_neighbor_graph(im_embed, corr, 'Isomap', ax=axes[1,0])
+#   show_neighbor_graph(lle_embed, corr, 'Locally Linear Embedding', ax=axes[1,1])
+#   show_neighbor_graph(sfa_embed, corr, 'Slow Features Embedding', ax=axes[2,0])
+#   pyplot.show()

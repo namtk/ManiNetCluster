@@ -1,10 +1,10 @@
 ''' Warping aligners '''
 import numpy as np
-from distance import SquaredL2
-from dtw import dtw
-from embedding import isomap
-from correspondence import Correspondence
-from alignment import TrivialAlignment,CCA,ManifoldLinear,manifold_nonlinear
+# from distance import SquaredL2
+# from dtw import dtw
+# from embedding import isomap
+# from correspondence import Correspondence
+# from alignment import TrivialAlignment,CCA,ManifoldLinear,manifold_nonlinear
 
 
 def ctw(X,Y,num_dims,metric=SquaredL2,threshold=0.01,max_iters=100,eps=1e-8):
