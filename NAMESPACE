@@ -8,4 +8,3 @@ export(listModules)
 export(plot_MEs)
 export(plot_MEs_sep)
 export(plot_dendro)
-

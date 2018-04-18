@@ -1,4 +1,4 @@
-# from distance import SquaredL2
+from distance import SquaredL2
 import numpy as np
 
 
