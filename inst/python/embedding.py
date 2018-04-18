@@ -1,7 +1,7 @@
 import numpy as np
 import scipy as sp
 from sklearn.manifold import Isomap,LocallyLinearEmbedding
-# from neighborhood import neighbor_graph,laplacian
+from neighborhood import neighbor_graph,laplacian
 
 
 def lapeig(W=None, L=None, num_vecs=None, return_vals=False):

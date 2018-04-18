@@ -59,15 +59,15 @@ class Correspondence(object):
     return B
 
 
-# if __name__ == '__main__':
-#   # simple sanity-check tests
-#   from neighborhood import neighbor_graph
-#   from viz import show_neighbor_graph, pyplot
-#   n = 500
-#   data = np.random.uniform(-1,1,(n,2))
-#   corr_k = Correspondence(matrix=neighbor_graph(data,k=3))
-#   corr_eps = Correspondence(matrix=neighbor_graph(data,epsilon=0.01))
-#   pyplot.subplot(1,2,1)
-#   show_neighbor_graph(data,corr_k,'kNN graph, k = 3')
-#   pyplot.subplot(1,2,2)
-#   show_neighbor_graph(data, corr_eps, '$\epsilon$-ball graph, $\epsilon$ = 0.1')()
+if __name__ == '__main__':
+  # simple sanity-check tests
+  from neighborhood import neighbor_graph
+  from viz import show_neighbor_graph, pyplot
+  n = 500
+  data = np.random.uniform(-1,1,(n,2))
+  corr_k = Correspondence(matrix=neighbor_graph(data,k=3))
+  corr_eps = Correspondence(matrix=neighbor_graph(data,epsilon=0.01))
+  pyplot.subplot(1,2,1)
+  show_neighbor_graph(data,corr_k,'kNN graph, k = 3')
+  pyplot.subplot(1,2,2)
+  show_neighbor_graph(data, corr_eps, '$\epsilon$-ball graph, $\epsilon$ = 0.1')()

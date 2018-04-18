@@ -1,6 +1,6 @@
 import numpy as np
-# from correspondence import Correspondence
-# from distance import SquaredL2
+from correspondence import Correspondence
+from distance import SquaredL2
 from itertools import product
 
 

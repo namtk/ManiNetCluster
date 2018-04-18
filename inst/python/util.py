@@ -4,7 +4,7 @@ import scipy
 import sys
 import time
 
-# from distance import L2
+from distance import L2
 
 
 def pairwise_error(A,B,metric=L2):
