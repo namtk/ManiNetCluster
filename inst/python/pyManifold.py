@@ -683,6 +683,7 @@ def kMedoids(D, k, tmax=100):
 
 
 
+
 def ManiNetCluster(X,Y,corr=None,d=3,method='linear manifold',k=5):
   aligners = {
     'no alignment':     (lambda: TrivialAlignment(X,Y)),
