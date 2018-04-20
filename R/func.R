@@ -1,4 +1,5 @@
 #'
+#' Adapted from: https://github.com/iscb-dc-rsg/2016-summer-workshop/blob/master/3B-Hughitt-RNASeq-Coex-Network-Analysis/tutorial/README.md
 #' Similarity measure which combines elements from Pearson correlation and
 #' Euclidean distance.
 #' 
@@ -16,6 +17,7 @@ cordist <- function(dat) {
   sign(cor_matrix) * ((abs(cor_matrix) + dist_matrix)/ 2)
 }
 
+#' Adapted from: https://github.com/iscb-dc-rsg/2016-summer-workshop/blob/master/3B-Hughitt-RNASeq-Coex-Network-Analysis/tutorial/README.md
 #' @param 
 #' @return 
 #' @export 
@@ -131,6 +133,7 @@ listModules <- function(module_labels) {
 }
 
 
+#' Adapted from: #' Adapted from: https://github.com/iscb-dc-rsg/2016-summer-workshop/blob/master/3B-Hughitt-RNASeq-Coex-Network-Analysis/tutorial/README.md
 #' Converts an adjaceny matrix along with some optional vertex and edge
 #'  information to a GraphML graph and saves it to disk.
 #'

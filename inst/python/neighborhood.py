@@ -1,3 +1,5 @@
+''' adapted from https://github.com/all-umass/ManifoldWarping '''
+
 from distance import SquaredL2
 import numpy as np
 

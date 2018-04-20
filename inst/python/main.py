@@ -1,3 +1,5 @@
+''' adapted from https://github.com/all-umass/ManifoldWarping '''
+
 import numpy as np
 from scipy.cluster.hierarchy import linkage
 import pandas as pd

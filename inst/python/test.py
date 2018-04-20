@@ -1,3 +1,5 @@
+''' adapted from https://github.com/all-umass/ManifoldWarping '''
+
 import alignment
 import correspondence
 import distance

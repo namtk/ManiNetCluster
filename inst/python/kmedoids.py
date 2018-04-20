@@ -1,3 +1,5 @@
+''' adapted from: https://github.com/letiantian/kmedoids '''
+
 import numpy as np
 import random
 

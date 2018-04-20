@@ -1,3 +1,5 @@
+''' adapted from https://github.com/all-umass/ManifoldWarping '''
+
 ''' helper functions for generating synthetic data '''
 import numpy as np
 from numpy.random import randn, uniform, normal

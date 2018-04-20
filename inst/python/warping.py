@@ -1,3 +1,5 @@
+''' adapted from https://github.com/all-umass/ManifoldWarping '''
+
 ''' Warping aligners '''
 import numpy as np
 from distance import SquaredL2

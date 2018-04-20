@@ -1,3 +1,5 @@
+# adapted from: https://community.rstudio.com/t/build-package-namespace-dynamically-during-onload/4101
+
 # library(reticulate)
 # use_python("/home/dnguyen/anaconda3/bin/python")
 # 

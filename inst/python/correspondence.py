@@ -1,3 +1,5 @@
+''' adapted from https://github.com/all-umass/ManifoldWarping '''
+
 ''' Inter-data correspondences '''
 import numpy as np
 

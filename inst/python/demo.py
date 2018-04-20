@@ -1,3 +1,5 @@
+''' adapted from https://github.com/all-umass/ManifoldWarping '''
+
 ''' Example of the alignment methods in this directory:
 
   # get your two data sets somehow

@@ -1,3 +1,5 @@
+''' adapted from https://github.com/all-umass/ManifoldWarping '''
+
 import numpy as np
 import scipy as sp
 from sklearn.manifold import Isomap,LocallyLinearEmbedding
