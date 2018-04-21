@@ -25,7 +25,7 @@
 # from remoteXclient import remoteXclient
 import numpy as np
 import matplotlib
-matplotlib.use('tkagg')
+matplotlib.use('tkagg') # always use tkagg for X11forwarding
 from matplotlib import pyplot
 from alignment import TrivialAlignment, Affine, Procrustes, CCA, CCAv2, ManifoldLinear, manifold_nonlinear
 from correspondence import Correspondence
@@ -45,7 +45,7 @@ def gen_data(n, three_d=False):
     else:
         X = spiral(t)
         Y = X[:, (1, 0)]  # swap x and y axes
-        return add_noise(X, 0.05), add_noise(Y, 0.05)
+    return add_noise(X, 0.05), add_noise(Y, 0.05)
 
 
 if __name__ == '__main__':
