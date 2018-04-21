@@ -684,32 +684,33 @@ def kMedoids(D, k, tmax=100):
 
 
 
-# def ManiNetCluster(X,Y,corr=None,d=3,method='linear manifold',k=5):
-#   Wx = neighbor_graph(X, k=k)
-#   Wy = neighbor_graph(Y, k=k)
-#   aligners = {
-#     'no alignment':     (lambda: TrivialAlignment(X,Y)),
-#     'affine':           (lambda: Affine(X,Y,corr,d)),
-#     'procrustes':       (lambda: Procrustes(X,Y,corr,d)),
-#     'cca':              (lambda: CCA(X,Y,corr,d)),
-#     'cca_v2':           (lambda: CCAv2(X,Y,d)),
-#     'linear manifold':  (lambda: ManifoldLinear(X,Y,corr,d,Wx,Wy)),
-#     'ctw':              (lambda: ctw(X,Y,d)[1]),
-#     'manifold warping': (lambda: manifold_warping_linear(X,Y,d,Wx,Wy)[1]),
-#     
-#     'dtw':              (lambda: (X, dtw(X,Y).warp(X))),
-#     'nonlinear manifold aln':
-#                         (lambda: manifold_nonlinear(X,Y,corr,d,Wx,Wy)),
-#     'nonlinear manifold warp':
-#                         (lambda: manifold_warping_nonlinear(X,Y,d,Wx,Wy)[1:]),
-#     'manifold warping two-step': 
-#                         (lambda: manifold_warping_twostep(X_normalized, Y_normalized, d, Wx, Wy)[1:])
-#   }
-#   # fig = pyplot.figure()
-#   with Timer(method):
-#       Xnew, Ynew = aligners[method]().project(X, Y)
-#   print (' sum sq. error =', pairwise_error(Xnew, Ynew, metric=SquaredL2))
-#   # show_alignment(Xnew, Ynew, title=method)
-#   # pyplot.draw()
-#   # pyplot.show()
-#   # fig.savefig(time.strftime("%Y%m%d-%H%M%S")+'.pdf')
+def ManiNetCluster(X,Y,corr=None,d=3,method='linear manifold',k=5):
+  Wx = neighbor_graph(X, k=k)
+  Wy = neighbor_graph(Y, k=k)
+  aligners = {
+    'no alignment':     (lambda: TrivialAlignment(X,Y)),
+    'affine':           (lambda: Affine(X,Y,corr,d)),
+    'procrustes':       (lambda: Procrustes(X,Y,corr,d)),
+    'cca':              (lambda: CCA(X,Y,corr,d)),
+    'cca_v2':           (lambda: CCAv2(X,Y,d)),
+    'linear manifold':  (lambda: ManifoldLinear(X,Y,corr,d,Wx,Wy)),
+    'ctw':              (lambda: ctw(X,Y,d)[1]),
+    'manifold warping': (lambda: manifold_warping_linear(X,Y,d,Wx,Wy)[1]),
+
+    'dtw':              (lambda: (X, dtw(X,Y).warp(X))),
+    'nonlinear manifold aln':
+                        (lambda: manifold_nonlinear(X,Y,corr,d,Wx,Wy)),
+    'nonlinear manifold warp':
+                        (lambda: manifold_warping_nonlinear(X,Y,d,Wx,Wy)[1:]),
+    'manifold warping two-step':
+                        (lambda: manifold_warping_twostep(X_normalized, Y_normalized, d, Wx, Wy)[1:])
+  }
+  # fig = pyplot.figure()
+  with Timer(method):
+      Xnew, Ynew = aligners[method]().project(X, Y)
+  return pairwise_error(Xnew, Ynew, metric=SquaredL2)
+  # print (' sum sq. error =', pairwise_error(Xnew, Ynew, metric=SquaredL2))
+  # show_alignment(Xnew, Ynew, title=method)
+  # pyplot.draw()
+  # pyplot.show()
+  # fig.savefig(time.strftime("%Y%m%d-%H%M%S")+'.pdf')
