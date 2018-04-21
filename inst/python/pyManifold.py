@@ -705,12 +705,12 @@ def ManiNetCluster(X,Y,corr=None,d=3,method='linear manifold',k=5):
     'manifold warping two-step':
                         (lambda: manifold_warping_twostep(X_normalized, Y_normalized, d, Wx, Wy)[1:])
   }
-  # fig = pyplot.figure()
+  fig = pyplot.figure()
   # with Timer(method):
   Xnew, Ynew = aligners[method]().project(X, Y)
-  # print (' sum sq. error =', pairwise_error(Xnew, Ynew, metric=SquaredL2))
+  print (' sum sq. error =', pairwise_error(Xnew, Ynew, metric=SquaredL2))
   show_alignment(Xnew, Ynew, title=method)
-  # pyplot.draw()
-  # pyplot.show()
-  # fig.savefig(time.strftime("%Y%m%d-%H%M%S")+'.pdf')
+  pyplot.draw()
+  pyplot.show()
+  fig.savefig(time.strftime("%Y%m%d-%H%M%S")+'.pdf')
   return pairwise_error(Xnew, Ynew, metric=SquaredL2)#, pyplot.show
