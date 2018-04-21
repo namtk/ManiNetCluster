@@ -16,6 +16,8 @@ except ImportError:
 from itertools import product
 from functools import reduce
 import random
+import matplotlib
+matplotlib.use('tkagg') # always use tkagg for X11forwarding
 from matplotlib import pyplot
 
 
@@ -712,3 +714,5 @@ def ManiNetCluster(X,Y,corr=None,d=3,method='linear manifold',k=5):
   print (' sum sq. error =', pairwise_error(Xnew, Ynew, metric=SquaredL2))
   show_alignment(Xnew, Ynew, title=method)
   pyplot.draw()
+  pyplot.ioff()
+  pyplot.show()
