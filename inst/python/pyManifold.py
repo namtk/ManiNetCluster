@@ -7,6 +7,7 @@ import time
 import scipy.spatial.distance as sd
 from sklearn.metrics.pairwise import euclidean_distances, pairwise_distances
 from sklearn.manifold import Isomap,LocallyLinearEmbedding
+import pandas as pd
 try:
     # Python 2
     from itertools import izip
