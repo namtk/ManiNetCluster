@@ -5,7 +5,7 @@ import scipy as sp
 import sys
 import time
 import scipy.spatial.distance as sd
-from sklearn.metrics.pairwise import euclidean_distances
+from sklearn.metrics.pairwise import euclidean_distances, pairwise_distances
 from sklearn.manifold import Isomap,LocallyLinearEmbedding
 try:
     # Python 2
