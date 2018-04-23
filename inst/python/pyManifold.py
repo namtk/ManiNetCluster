@@ -684,7 +684,7 @@ def kMedoids(D, k, tmax=100):
 
 
 
-def ManiNetCluster(X,Y,corr=None,d=3,method='linear manifold',k_NN=5, k_medoids):
+def ManiNetCluster(X,Y,corr=None,d=3,method='linear manifold',k_NN=5, k_medoids=60):
   Wx = neighbor_graph(X, k=k_NN)
   Wy = neighbor_graph(Y, k=k_NN)
   aligners = {
