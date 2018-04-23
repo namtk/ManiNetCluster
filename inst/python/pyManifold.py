@@ -717,7 +717,7 @@ def ManiNetCluster(X,Y,corr=None,d=3,method='linear manifold',k_NN=5, k_medoids)
   # distance matrix
   D = pairwise_distances(W, metric='euclidean')
   # split into 60 clusters
-  M, C = kmedoids.kMedoids(D, k_medoids)
+  M, C = kMedoids(D, k_medoids)
 
   C_label = np.zeros(X.shape[0]+Y.shape[0])
 
