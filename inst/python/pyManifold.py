@@ -684,7 +684,7 @@ def kMedoids(D, k, tmax=100):
 
 
 
-def ManiNetCluster(X,Y,corr=None,d=3,method='linear manifold',k=5):
+def ManiNetCluster(X,Y,corr=None,d=3,method='linear manifold',k_NN=5, k_medoids):
   Wx = neighbor_graph(X, k=k)
   Wy = neighbor_graph(Y, k=k)
   aligners = {
@@ -705,12 +705,23 @@ def ManiNetCluster(X,Y,corr=None,d=3,method='linear manifold',k=5):
     'manifold warping two-step':
                         (lambda: manifold_warping_twostep(X_normalized, Y_normalized, d, Wx, Wy)[1:])
   }
-  fig = pyplot.figure()
+  # fig = pyplot.figure()
   # with Timer(method):
   Xnew, Ynew = aligners[method]().project(X, Y)
-  print (' sum sq. error =', pairwise_error(Xnew, Ynew, metric=SquaredL2))
-  show_alignment(Xnew, Ynew, title=method)
-  pyplot.draw()
-  pyplot.show()
-  fig.savefig(time.strftime("%Y%m%d-%H%M%S")+'.pdf')
-  return pairwise_error(Xnew, Ynew, metric=SquaredL2)#, pyplot.show
+  # print (' sum sq. error =', pairwise_error(Xnew, Ynew, metric=SquaredL2))
+  # show_alignment(Xnew, Ynew, title=method)
+  # pyplot.draw()
+  # pyplot.show()
+  # fig.savefig(time.strftime("%Y%m%d-%H%M%S")+'.pdf')W = np.concatenate((Xnew, Ynew), axis=0)
+  # distance matrix
+  D = pairwise_distances(W, metric='euclidean')
+  # split into 60 clusters
+  M, C = kmedoids.kMedoids(D, k_medoids)
+
+  C_label = np.zeros(X.shape[0]+Y.shape[0])
+
+  for label in C:
+    for point_idx in C[label]:
+        C_label[point_idx] = label
+        
+  return C_label#, pairwise_error(Xnew, Ynew, metric=SquaredL2)#, pyplot.show
