@@ -713,7 +713,7 @@ def ManiNetCluster(X,Y,corr=None,d=3,method='linear manifold',k_NN=5, k_medoids)
   # pyplot.draw()
   # pyplot.show()
   # fig.savefig(time.strftime("%Y%m%d-%H%M%S")+'.pdf')W = np.concatenate((Xnew, Ynew), axis=0)
-  W = np.concatenate((Xnew, Ynew), axis=0)
+  W = np.concatenate((Xnew, Ynew), axis=0) # Matrix containing both X and Y
   # distance matrix
   D = pairwise_distances(W, metric='euclidean')
   # split into 60 clusters
