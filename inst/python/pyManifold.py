@@ -727,6 +727,6 @@ def ManiNetCluster(X,Y,corr=None,d=3,method='linear manifold',k_NN=5, k_medoids=
         C_label[point_idx] = label
         
   X_or_Y = np.repeat(np.array([1,2]), [Xnew.shape[0], Ynew.shape[0]], axis=0)
-  df = pd.DataFrame({'cluster':C_label, 'X or Y':X_or_Y, 'Val1':W[:,0], 'Val2':W[:,1]})
+  df = pd.DataFrame({'cluster':C_label, 'X or Y':X_or_Y, 'Val1':W[:,0], 'Val2':W[:,1], 'Val3':W[:,2]})
   return df#, C_label#, pairwise_error(Xnew, Ynew, metric=SquaredL2)#, pyplot.show
   
