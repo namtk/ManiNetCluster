@@ -732,6 +732,6 @@ def ManiNetCluster(file1,file2,nameX=None,nameY=None,corr=None,d=3,method='linea
         C_label[point_idx] = label
         
   X_or_Y = np.repeat(np.array([nameX,nameY]), [Xnew.shape[0], Ynew.shape[0]], axis=0)
-  df = pd.DataFrame({'module':C_label, 'data':X_or_Y, 'Val1':W[:,0], 'Val2':W[:,1], 'Val3':W[:,2]}, 'id':df_in1[df_in1.columns[0]].tolist()+df_in2[df_in2.columns[0]].tolist())
+  df = pd.DataFrame({'module':C_label, 'data':X_or_Y, 'Val1':W[:,0], 'Val2':W[:,1], 'Val3':W[:,2], 'id':df_in1[df_in1.columns[0]].tolist()+df_in2[df_in2.columns[0]].tolist()})
   return df#, C_label#, pairwise_error(Xnew, Ynew, metric=SquaredL2)#, pyplot.show
   
