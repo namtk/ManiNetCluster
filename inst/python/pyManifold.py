@@ -685,11 +685,11 @@ def kMedoids(D, k, tmax=100):
 
 
 
-def ManiNetCluster(file1,file2,nameX=None,nameY=None,corr=None,d=3,method='linear manifold',k_NN=5, k_medoids=60):
-  df_in1 = pd.read_csv(file1)
-  df_in2 = pd.read_csv(file2)
-  X = df_in1.as_matrix()[:,1:df_in1.shape[1]]
-  Y = df_in2.as_matrix()[:,1:df_in2.shape[1]]
+def ManiNetCluster(X,Y,nameX=None,nameY=None,corr=None,d=3,method='linear manifold',k_NN=5, k_medoids=60):
+  # df_in1 = pd.read_csv(file1)
+  # df_in2 = pd.read_csv(file2)
+  # X = df_in1.as_matrix()[:,1:df_in1.shape[1]]
+  # Y = df_in2.as_matrix()[:,1:df_in2.shape[1]]
   
   Wx = neighbor_graph(X, k=k_NN)
   Wy = neighbor_graph(Y, k=k_NN)
@@ -732,6 +732,6 @@ def ManiNetCluster(file1,file2,nameX=None,nameY=None,corr=None,d=3,method='linea
         C_label[point_idx] = label
         
   X_or_Y = np.repeat(np.array([nameX,nameY]), [Xnew.shape[0], Ynew.shape[0]], axis=0)
-  df = pd.DataFrame({'module':C_label, 'data':X_or_Y, 'Val1':W[:,0], 'Val2':W[:,1], 'Val3':W[:,2], 'id':df_in1[df_in1.columns[0]].tolist()+df_in2[df_in2.columns[0]].tolist()})
+  df = pd.DataFrame({'module':C_label, 'data':X_or_Y, 'Val1':W[:,0], 'Val2':W[:,1], 'Val3':W[:,2]})#, 'id':df_in1[df_in1.columns[0]].tolist()+df_in2[df_in2.columns[0]].tolist()})
   return df#, C_label#, pairwise_error(Xnew, Ynew, metric=SquaredL2)#, pyplot.show
   
