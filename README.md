@@ -93,14 +93,14 @@ In the code above, we would like to specify the names of datasets as ‘day’ a
 
 The output is the dataframe as follow:
 
- | Val1 | Val2 | Val3 | data | module | id
---- | --- | --- | --- | --- | --- | --- 
-1 | -2.6434931 | -0.146657079 | 0.008016877 | day | 15 | Cre01.g002200
-2 | -1.6242314 | 0.302633402 | 0.080689364 | day | 19 | Cre01.g002350
-3 | -1.4356133 | -0.768342141 | 0.001276283 | day | 27 | Cre01.g003376
-4 | -4.0854834 | -0.415335251 | -0.204782870 | day | 13 | Cre01.g007051
-5 | -1.4089036 | 0.462236245 | -0.069898261 | day | 8 | Cre01.g008000
-6 | -1.2170322 | -0.784766106 | -0.205207899 | day | 22 | Cre01.g010848
+| | Val1 | Val2 | Val3 | data | module | id |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | -2.6434931 | -0.146657079 | 0.008016877 | day | 15 | Cre01.g002200 |
+| 2 | -1.6242314 | 0.302633402 | 0.080689364 | day | 19 | Cre01.g002350 |
+| 3 | -1.4356133 | -0.768342141 | 0.001276283 | day | 27 | Cre01.g003376 |
+| 4 | -4.0854834 | -0.415335251 | -0.204782870 | day | 13 | Cre01.g007051 |
+| 5 | -1.4089036 | 0.462236245 | -0.069898261 | day | 8 | Cre01.g008000 |
+| 6 | -1.2170322 | -0.784766106 | -0.205207899 | day | 22 | Cre01.g010848 |
 
 # Visualization and Comparing the non alignment and alignment results
 We figure out the best way to visualize the alignment result is using gradient color to capture the local alignment. In this method, same genes from two dataset (or genes which has correspondence to each other) are depicted by the same color. We fix one dataset and color the genes gradiently by sorting the expression level of genes by increasing order as in this code:
