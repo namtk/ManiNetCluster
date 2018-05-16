@@ -179,3 +179,6 @@ We plot them at the same time:
 ![](figs/tut/Screen%20Shot%202018-05-03%20at%201.09.37%20AM.png "day and night time gene expression when applying PCA")
 
 We could see that the color of dataset 2 is messy for it doesn’t preserve the local similarity. Aslo, the scale is also a little bit different. Thus, the results of alignment, inspected by visualization, is proved to be better than pure PCA.
+
+### Reference
+1. J. M. Zones,  I.  K.  Blaby,  S.  S.  Merchant,  J.  G.  Umen,  High-Resolution  Profiling  of  a  Synchronized  Diurnal  Transcriptome  from  Chlamydomonas  reinhardtii  Reveals  Continuous  Cell  and  Metabolic  Differentiation.  *Plant  Cell* **27**,  2743-2769  (2015). 
