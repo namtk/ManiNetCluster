@@ -126,6 +126,7 @@ for (i in 1:num_datapoint) {
 Using the above, the data points of dataset 1 will form a rainbow cloud as depicted in the figure below:
 
 ![](figs/tut/Screen%20Shot%202018-05-03%20at%2012.58.19%20AM.png "day time gene expression when applying linear manifold")
+*day time gene expression when applying linear manifold*
 
 If the two datasets are well aligned, we will see the two things: (1) the range of color will keep the same order, and (2) the scale of the plot will approximate the scale of dataset 1 plot. This is because the objective function of manifold alignment/warping tries to minimize both local similarity (depicted by color of the neighborhood) and the global distance between two datasets (depicted by the range of plot). The code and the plot are as follows:
 
