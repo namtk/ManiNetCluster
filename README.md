@@ -1,5 +1,5 @@
 # ManiNetCluster
-Simultaneous clustering on manifold of time series gene expression profiles
+Simultaneous clustering on manifold time series gene expression profiles
 
 author: "[Nam Nguyen, Ian Blaby, Daifeng Wang]"
 
@@ -49,17 +49,17 @@ library(ManiNetCluster)
 The following demo is provided to walk through the basic functionality of ManiNetCluster. It should take less than 10 minutes to complete on a standard desktop computer.
 
 # Introduction 
-ManiNetCluster is a package that takes as input two or more gene expression profiles, and the gene correspondences or orthologs for  cross-species  comparison. ManiNetCluster has 3 essential steps:
+ManiNetCluster is a package that takes as input two or more gene expression profiles, and the gene correspondences  (i.e. orthologs) for  cross-species  comparison. ManiNetCluster has 3 essential steps:
 
 1. Construct gene co-expression networks from gene expression data
 
-2. Align networks incrementally in pseudo-time using manifold alignment and warping techniques 
+2. Align the networks incrementally in pseudo-time using manifold alignment and warping techniques 
 
 3. Cluster genes into modules of four different types (type A: conserved modules, type B, type C: specific-specific modules, type D: functional connectivity modules.
 
 Included  in  our  package  is  an  example dataset. These  data are published  in (1) and  describe  a day/night  timecourse  of  synchronized  cultures  of  a  green  alga.
 
-We provided here the sample data of time series gene expression data of Chlamydomonas reinhardtii. The full dataset includes more than 17000 genes but in this example, we sample the data semantically by taking genes being orthologous to Arabidopsis thaliana. Users can find the data (in .csv format) in the github repository (namtk/ManiNetCluster/data/).
+We provided here the sample data of time series gene expression data of Chlamydomonas reinhardtii. The full dataset includes more than 17000 genes but in this example, to demonstrate cross-species comparison, we have limited the data to genes which have orthologs (as determined by InParanoid8 (2)) by taking genes being orthologous to Arabidopsis thaliana. Users can find the data (in .csv format) in the github repository (namtk/ManiNetCluster/data/).
 
 The first step is to load the data:
 
@@ -69,14 +69,14 @@ Y <- as.matrix(read.csv("Downloads/nightOrthoExpr.csv", row.names=1))
 ```
 
 # Main Function: ManiNetCluster
-In our package, we provide a bunch of functions that users can use for separately constructing networks, detecting modules, projecting data into a manifold. But, for convenient, we provide the wrapper function, called ManiNetCluster, which take two matrix describing the gene expression time series (where rows are genes and columns are timepoints) as inputs and output the projected data in a common manifold and the modules into which the genes are clustered. Users must also provide the corresponding matrix encapsulating the correspondence between two datasets (such as ortholog information). To specify such a corresponding matrix, users must use the class Correspondence provided in our package. The usage is easy as follow: (Here, we use an identity matrix for correspondence since the datasets include the same set of genes in different timepoints)
+In our package, we provide multiple functions that users can use for separately constructing networks, detecting modules, projecting data into a manifold. But, for convenience, we provide the wrapper function, called ManiNetCluster, which takes two matrices describing the gene expression time series (where rows are genes and columns are timepoints) as inputs and output the projected data in a common manifold and the modules into which the genes are clustered. Users must also provide the corresponding matrix encapsulating the correspondence between two datasets (such as ortholog information). To specify such a corresponding matrix, users must use the class Correspondence provided in our package. The usage is easy as follow: (Here, we use an identity matrix for correspondence since the datasets include the same set of genes in different timepoints)
 
 ```r
 n <- nrow(X)
 corr <- Correspondence(matrix=diag(n))
 ```
 
-Other parameters could be tunes are the names of datasets, the dimension of manifold to output, the method, the number of nearest neighbours for approximated graph construction, and the number modules users want to output. The example use of the function is as follow:
+Other parameters could be tunes are the names of datasets, the dimension of manifold to output, the method, the number of nearest neighbors for approximated graph construction, and the number of modules users want to output. The example use of the function is as follow:
 
 ```r
 df <- ManiNetCluster(X,Y,nameX='day',nameY='night',corr=corr,d=3L,method='linear manifold',k_NN=6L,k_medoids=60L)
@@ -103,7 +103,7 @@ The output is the dataframe as follow:
 | 6 | -1.2170322 | -0.784766106 | -0.205207899 | day | 22 | Cre01.g010848 |
 
 # Visualization and Comparing the non alignment and alignment results
-We figure out the best way to visualize the alignment result is using gradient color to capture the local alignment. In this method, same genes from two dataset (or genes which has correspondence to each other) are depicted by the same color. We fix one dataset and color the genes gradiently by sorting the expression level of genes by increasing order as in this code:
+One method to visualize the alignment result is to use gradient color to capture the local alignment. In this method, same genes from two dataset (or genes which has correspondence to each other) are depicted by the same color. We fix one dataset and color the genes by sorting the expression level of genes by increasing order as in this code:
 
 ```r
 df1 <- df[df$data == 'day',]
@@ -112,10 +112,10 @@ df1 <- df1[order(df1$Val1,df1$Val2,df1$Val3), ]
 df2 <- df2[match(df1$id, df2$id), ]
 ```
 
-We use the rgl library to have a live visualization of data points by points:
+We use the rgl library for live visualization of data points by points:
 
 ```r
-num_datapoint=972
+num_datapoint=972 # the number of genes in the dataset
 pal <- rainbow(num_datapoint)
 library(rgl)
 for (i in 1:num_datapoint) {
@@ -123,11 +123,11 @@ for (i in 1:num_datapoint) {
 }
 ```
 
-By this, the data points of dataset 1 will form a rainbow cloud as depicted in the figure below:
+Using the above, the data points of dataset 1 will form a rainbow cloud as depicted in the figure below:
 
 ![](figs/tut/Screen%20Shot%202018-05-03%20at%2012.58.19%20AM.png "day time gene expression when applying linear manifold")
 
-We plot the dataset 2, if it is well aligned in a manifold with dataset 1, we will see the two things: (1) the range of color will keep the same order, and (2) the scale of the plot will approximate the scale of dataset 1 plot. This is because the objective function of manifold alignment/warping tries to minimize both local similarity (depicted by color of the neighborhood) and the global distance between two datasets (depicted by the range of plot). The code and the plot are follows:
+If the two datasets are well aligned, we will see the two things: (1) the range of color will keep the same order, and (2) the scale of the plot will approximate the scale of dataset 1 plot. This is because the objective function of manifold alignment/warping tries to minimize both local similarity (depicted by color of the neighborhood) and the global distance between two datasets (depicted by the range of plot). The code and the plot are as follows:
 
 ```r
 for (i in 1:num_datapoint) {
@@ -136,12 +136,14 @@ for (i in 1:num_datapoint) {
 ```
 
 ![](figs/tut/Screen%20Shot%202018-05-03%20at%2012.59.20%20AM.png "night time gene expression when applying linear manifold")
+*night time gene expression when applying linear manifold*
 
-Of course, we can plot them in the same coordinators as follow:
+Additionally, we can plot them in the same coordinators as follow:
 
 ![](figs/tut/Screen%20Shot%202018-05-03%20at%201.01.55%20AM.png "day and night time gene expression when applying linear manifold")
+*day and night time gene expression when applying linear manifold*
 
-We could see from these plot, the result is quite good because it preserve the range of color (local similarity) and the scale of plot (global distance). We can compare this alignment result with unalignment one. We use PCA to plot the original datasets, the code is as follows:
+From these plots, it is apparent that the alignment is good because the range of color (local similarity) and the scale of plot (global distance) is preserved. We can compare this alignment result with unalignment one. To plot the original datasets we use PCA, the code is as follows:
 
 ```r
 pca_coordinatesX=prcomp(X)$x
@@ -169,16 +171,20 @@ for (i in 1:num_datapoint) {
 Below is the plot of dataset 1:
 
 ![](figs/tut/Screen%20Shot%202018-05-03%20at%201.06.02%20AM.png "day time gene expression when applying PCA")
+*day time gene expression when applying PCA*
 
-And dataset 2 is follow:
+And dataset 2 is as follows:
 
 ![](figs/tut/Screen%20Shot%202018-05-03%20at%201.07.02%20AM.png "night time gene expression when applying PCA")
+*night time gene expression when applying PCA*
 
-We plot them at the same time:
+When plotted simultaneously:
 
 ![](figs/tut/Screen%20Shot%202018-05-03%20at%201.09.37%20AM.png "day and night time gene expression when applying PCA")
+*day and night time gene expression when applying PCA*
 
-We could see that the color of dataset 2 is messy for it doesn’t preserve the local similarity. Aslo, the scale is also a little bit different. Thus, the results of alignment, inspected by visualization, is proved to be better than pure PCA.
+This plot demonstrates poor alignment as indicated by absence of scale and color gradient preservation. Thus, the results of alignment, inspected by visualization, is proved to be better than pure PCA.
 
 ### Reference
 1. J. M. Zones,  I.  K.  Blaby,  S.  S.  Merchant,  J.  G.  Umen,  High-Resolution  Profiling  of  a  Synchronized  Diurnal  Transcriptome  from  Chlamydomonas  reinhardtii  Reveals  Continuous  Cell  and  Metabolic  Differentiation.  *Plant  Cell* **27**,  2743-2769  (2015). 
+2. Erik L.L.Sonnhammer and Gabriel Östlund. InParanoid 8: orthology analysis between 273 proteomes, mostly eukaryotic Nucleic Acids Res. 43:D234-D239 (2015)
