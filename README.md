@@ -125,8 +125,9 @@ for (i in 1:num_datapoint) {
 
 Using the above, the data points of dataset 1 will form a rainbow cloud as depicted in the figure below:
 
-![](figs/tut/Screen%20Shot%202018-05-03%20at%2012.58.19%20AM.png "day time gene expression when applying linear manifold")
-*day time gene expression when applying linear manifold*
+|![](figs/tut/Screen%20Shot%202018-05-03%20at%2012.58.19%20AM.png "day time gene expression when applying linear manifold")|
+|:--:| 
+| *day time gene expression when applying linear manifold* |
 
 If the two datasets are well aligned, we will see the two things: (1) the range of color will keep the same order, and (2) the scale of the plot will approximate the scale of dataset 1 plot. This is because the objective function of manifold alignment/warping tries to minimize both local similarity (depicted by color of the neighborhood) and the global distance between two datasets (depicted by the range of plot). The code and the plot are as follows:
 
@@ -136,13 +137,15 @@ for (i in 1:num_datapoint) {
 }
 ```
 
-![](figs/tut/Screen%20Shot%202018-05-03%20at%2012.59.20%20AM.png "night time gene expression when applying linear manifold")
-*night time gene expression when applying linear manifold*
+|![](figs/tut/Screen%20Shot%202018-05-03%20at%2012.59.20%20AM.png "night time gene expression when applying linear manifold")|
+|:--:| 
+| *night time gene expression when applying linear manifold* |
 
 Additionally, we can plot them in the same coordinators as follow:
 
-![](figs/tut/Screen%20Shot%202018-05-03%20at%201.01.55%20AM.png "day and night time gene expression when applying linear manifold")
-*day and night time gene expression when applying linear manifold*
+|![](figs/tut/Screen%20Shot%202018-05-03%20at%201.01.55%20AM.png "day and night time gene expression when applying linear manifold")|
+|:--:| 
+| *day and night time gene expression when applying linear manifold* |
 
 From these plots, it is apparent that the alignment is good because the range of color (local similarity) and the scale of plot (global distance) is preserved. We can compare this alignment result with unalignment one. To plot the original datasets we use PCA, the code is as follows:
 
@@ -171,18 +174,21 @@ for (i in 1:num_datapoint) {
 
 Below is the plot of dataset 1:
 
-![](figs/tut/Screen%20Shot%202018-05-03%20at%201.06.02%20AM.png "day time gene expression when applying PCA")
-*day time gene expression when applying PCA*
+|![](figs/tut/Screen%20Shot%202018-05-03%20at%201.06.02%20AM.png "day time gene expression when applying PCA")|
+|:--:| 
+| *day time gene expression when applying PCA* |
 
 And dataset 2 is as follows:
 
-![](figs/tut/Screen%20Shot%202018-05-03%20at%201.07.02%20AM.png "night time gene expression when applying PCA")
-*night time gene expression when applying PCA*
+|![](figs/tut/Screen%20Shot%202018-05-03%20at%201.07.02%20AM.png "night time gene expression when applying PCA")|
+|:--:| 
+| *night time gene expression when applying PCA* |
 
 When plotted simultaneously:
 
-![](figs/tut/Screen%20Shot%202018-05-03%20at%201.09.37%20AM.png "day and night time gene expression when applying PCA")
-*day and night time gene expression when applying PCA*
+|![](figs/tut/Screen%20Shot%202018-05-03%20at%201.09.37%20AM.png "day and night time gene expression when applying PCA")|
+|:--:| 
+| *day and night time gene expression when applying PCA* |
 
 This plot demonstrates poor alignment as indicated by absence of scale and color gradient preservation. Thus, the results of alignment, inspected by visualization, is proved to be better than pure PCA.
 
