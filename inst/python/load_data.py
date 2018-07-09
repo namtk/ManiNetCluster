@@ -1,6 +1,9 @@
 ##########################################################################
 ### Load Fly & Worm Data and Prepare X, Y, Corr for Manifold Alignment ###
 ##########################################################################
+import pandas as pd
+from os import sys
+
 datOrtho = pd.read_csv(sys.argv[3]) # Modencode.merged.orth20120611_wfh_1to1_comm.csv
 
 datFly = pd.read_csv(sys.argv[1]).iloc[:, 0:13] # fly_data_all_30stages.csv
@@ -62,3 +65,8 @@ corr = corr[cols]
 
 idx = datWorm.index
 corr = corr.reindex(idx)
+
+store = pd.HDFStore('store.h5')
+store['worm'] = datWorm
+store['fly'] = datFly
+store.close()

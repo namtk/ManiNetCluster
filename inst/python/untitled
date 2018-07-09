@@ -1,0 +1,70 @@
+import pandas as pd
+import scipy.spatial.distance as sd
+from sklearn import preprocessing
+import numpy as np
+from matplotlib import pyplot
+# from matplotlib.backends.backend_pdf import PdfPages
+import seaborn as sns
+from alignment import TrivialAlignment, CCA, ManifoldLinear, manifold_nonlinear
+from correspondence import Correspondence
+from distance import Metric#SquaredL2
+from neighborhood import neighbor_graph
+from util import pairwise_error, Timer
+from viz import show_alignment
+from warping import ctw, dtw, manifold_warping_linear, manifold_warping_nonlinear, manifold_warping_twostep
+
+datWorm = store['worm']
+
+d = 3
+X = datWorm.iloc[:, 0:datWorm.shape[1]].as_matrix()
+Y = datFly.iloc[:, 0:datFly.shape[1]].as_matrix()
+
+X_normalized = preprocessing.normalize(X, norm='l2')
+Y_normalized = preprocessing.normalize(Y, norm='l2')
+
+corr = Correspondence(matrix=corr.as_matrix())
+Wx = neighbor_graph(X_normalized,k=6)
+Wy = neighbor_graph(Y_normalized,k=6)
+
+lin_aligners = (
+    ('no alignment', lambda: TrivialAlignment(X_normalized, Y_normalized, d)),
+    ('cca', lambda: CCA(X_normalized, Y_normalized, corr, d)),
+    ('linear manifold', lambda: ManifoldLinear(X_normalized, Y_normalized, corr, d, Wx, Wy)),
+    ('manifold warping', lambda: manifold_warping_linear(X_normalized, Y_normalized, d, Wx, Wy)[1]),
+)
+
+other_aligners = (
+    ('nonlinear manifold aln', lambda: manifold_nonlinear(X_normalized, Y_normalized, corr, d, Wx, Wy)),
+)
+
+metric = Metric(sd.chebyshev,'chebyshev')
+
+disMat = np.empty((0,3626614), float)
+
+for name, aln in lin_aligners:
+    pyplot.figure()
+    pyplot.clf()
+    with Timer(name):
+        Xnew, Ynew = aln().project(X_normalized, Y_normalized)    
+    print (' sum sq. error =', pairwise_error(Xnew, Ynew
+                                              , metric=metric))
+    
+    disMat = np.vstack((disMat, metric.between(Xnew/Xnew.max(), Ynew/Ynew.max()).flatten()))
+    
+    show_alignment(Xnew, Ynew, 'Worm', 'Fly', name)
+    pyplot.savefig(name + ".svg")
+    
+for name, aln in other_aligners:
+    pyplot.figure()
+    pyplot.clf()
+    with Timer(name):
+        Xnew, Ynew = aln()
+    print (' sum sq. error =', pairwise_error(Xnew, Ynew, metric=metric))
+    
+    disMat = np.vstack((disMat, metric.between(Xnew/Xnew.max(), Ynew/Ynew.max()).flatten()))
+    
+    show_alignment(Xnew, Ynew, 'Worm', 'Fly', name) 
+    pyplot.savefig(name + ".svg")
+    
+
+    
