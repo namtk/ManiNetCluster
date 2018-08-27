@@ -1,8 +1,8 @@
 library(tidygraph)
 library(ggraph)
 
-# net1 <- play_geometry(30, 0.25)
-net1 %>% 
+net1.1 <- play_geometry(30, 0.25, torus = TRUE)
+net1.1 %>% 
   mutate(dist_to_center = node_distance_to(node_is_center())) %>% 
   ggraph(layout = 'kk') + 
   geom_edge_link(colour = '#31a354') + 
@@ -10,7 +10,7 @@ net1 %>%
   scale_size_continuous(range = c(6, 1)) +
   theme_graph()
 
-# net2 <- play_geometry(30, 0.25)
+net2 <- play_geometry(30, 0.25)
 net2 %>% 
   mutate(dist_to_center = node_distance_to(node_is_center())) %>% 
   ggraph(layout = 'kk') + 

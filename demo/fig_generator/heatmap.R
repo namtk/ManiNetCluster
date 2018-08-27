@@ -1,5 +1,5 @@
 library(viridis)
-library(ggplots)
+library(gplots)
 
 heatxy = matrix(
   c(rep(0,7),1,1,1,
@@ -8,8 +8,8 @@ heatxy = matrix(
     rep(0,10),
     rep(0,10),
     rep(0,10),
-    -1,-1,-1,rep(0,7),
-    -1,-1,-1,rep(0,7),
+    1,1,1,rep(0,7),
+    1,1,1,rep(0,7),
     rep(0,10),
     rep(0,10)), # the data elements 
   nrow=10,              # number of rows 
@@ -22,9 +22,9 @@ heatx = matrix(
     rep(0,5),2,2,2,0,0,
     rep(0,5),2,2,2,0,0,
     rep(0,5),2,2,2,0,0,
-    0,0,-2,-2,-2,rep(0,5),
-    0,0,-2,-2,-2,rep(0,5),
-    0,0,-2,-2,-2,rep(0,5),
+    0,0,2,2,2,rep(0,5),
+    0,0,2,2,2,rep(0,5),
+    0,0,2,2,2,rep(0,5),
     rep(0,10),
     rep(0,10)), # the data elements 
   nrow=10,              # number of rows 
@@ -36,9 +36,9 @@ heaty = matrix(
     rep(0,7),3,3,3,
     rep(0,7),3,3,3,
     rep(0,10),
-    0,0,0,-3,-3,-3,rep(0,4),
-    0,0,0,-3,-3,-3,rep(0,4),
-    0,0,0,-3,-3,-3,rep(0,4),
+    0,0,0,3,3,3,rep(0,4),
+    0,0,0,3,3,3,rep(0,4),
+    0,0,0,3,3,3,rep(0,4),
     4,4,4,rep(0,7),
     4,4,4,rep(0,7),
     4,4,4,rep(0,7)), # the data elements 
@@ -59,12 +59,13 @@ Noisify <- function(data, grain) {
   return(noisified)
 }
 
-heatxy <- Noisify(heatxy, .4)
-heatx <- Noisify(heatx, .5)
+heatxy <- Noisify(heatxy, .3)
+heatx <- Noisify(heatx, .3)
 heaty <- Noisify(heaty, .5)
 
 heatmap.2(heatxy, Rowv=NA, Colv=NA, trace="none",
-          col=viridis_pal(option = "D")(100),
+          # col=viridis_pal(option = "D")(100),
+          col=colorRampPalette(c("#f0f0f0", "#bdbdbd", "#636363")),
           key = F,
           lmat = matrix(c(4,2,3,1),
                         nrow=2,
@@ -72,7 +73,7 @@ heatmap.2(heatxy, Rowv=NA, Colv=NA, trace="none",
           lhei = c(0.1,0.9),
           lwid = c(0.3,0.7))
 heatmap.2(heatx, Rowv=NA, Colv=NA, trace="none",
-          col=colorRampPalette(c("#deebf7", "#9ecae1", "#3182bd")),
+          col=colorRampPalette(c("#f0f0f0", "#bdbdbd", "#636363")),
           key = F,
           lmat = matrix(c(4,2,3,1),
                         nrow=2,
@@ -80,7 +81,7 @@ heatmap.2(heatx, Rowv=NA, Colv=NA, trace="none",
           lhei = c(0.1,0.9),
           lwid = c(0.3,0.7))
 heatmap.2(heaty, Rowv=NA, Colv=NA, trace="none",
-          col=colorRampPalette(c("#31a354", "#a1d99b", "#e5f5e0")),
+          col=colorRampPalette(c("#f0f0f0", "#bdbdbd", "#636363")),
           key = F,
           lmat = matrix(c(4,2,3,1),
                         nrow=2,

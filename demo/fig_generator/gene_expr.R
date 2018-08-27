@@ -11,7 +11,7 @@ quantile.range <- quantile(random.matrix, probs = seq(0, 1, 0.01))
 palette.breaks <- seq(quantile.range["5%"], quantile.range["95%"], 0.1)
 
 # use http://colorbrewer2.org/ to find optimal divergent color palette (or set own)
-color.palette  <- colorRampPalette(c("#deebf7", "#9ecae1", "#3182bd"))(length(palette.breaks) - 1)
+color.palette  <- colorRampPalette(c("#1F968BFF", "#55C667FF", "#FDE725FF"))(length(palette.breaks) - 1)
 
 heatmap.2(
   
