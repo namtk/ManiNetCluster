@@ -1,9 +1,9 @@
 # ManiNetCluster
 Simultaneous clustering on manifold time series gene expression profiles
 
-author: "[Nam Nguyen, Ian Blaby, Daifeng Wang]"
+author: Nam Nguyen, Ian Blaby, Daifeng Wang
 
-date: "April 12, 2018"
+date: April 12, 2018
 
 ---
 To use this package, you will need both the R statistical computing environment (version 3.4.1 or later) and Python (version 3.6.1 or later). The Python environment depends on numpy, scipy, matplotlib, and scikit-learn.
@@ -72,7 +72,7 @@ Y <- as.matrix(read.csv("Downloads/nightOrthoExpr.csv", row.names=1))
 In our package, we provide multiple functions that users can use for separately constructing networks, detecting modules, projecting data into a manifold. But, for convenience, we provide the wrapper function, called ManiNetCluster, which takes two matrices describing the gene expression time series (where rows are genes and columns are timepoints) as inputs and output the projected data in a common manifold and the modules into which the genes are clustered. Users must also provide the corresponding matrix encapsulating the correspondence between two datasets (such as ortholog information). To specify such a corresponding matrix, users must use the class Correspondence provided in our package. The usage is easy as follow: (Here, we use an identity matrix for correspondence since the datasets include the same set of genes in different timepoints)
 
 ```r
-n <- nrow(X)
+n <- nrow(X) # the number of genes in the dataset
 corr <- Correspondence(matrix=diag(n))
 ```
 
@@ -115,10 +115,9 @@ df2 <- df2[match(df1$id, df2$id), ]
 We use the rgl library for live visualization of data points by points:
 
 ```r
-num_datapoint=972 # the number of genes in the dataset
-pal <- rainbow(num_datapoint)
+pal <- rainbow(n)
 library(rgl)
-for (i in 1:num_datapoint) {
+for (i in 1:n) {
   with(df1[i,],points3d(Val1,Val2,Val3,size=7,col=pal[i], alpha=.1))
 }
 ```
@@ -132,7 +131,7 @@ Using the above, the data points of dataset 1 will form a rainbow cloud as depic
 If the two datasets are well aligned, we will see the two things: (1) the range of color will keep the same order, and (2) the scale of the plot will approximate the scale of dataset 1 plot. This is because the objective function of manifold alignment/warping tries to minimize both local similarity (depicted by color of the neighborhood) and the global distance between two datasets (depicted by the range of plot). The code and the plot are as follows:
 
 ```r
-for (i in 1:num_datapoint) {
+for (i in 1:n) {
   with(df2[i,],points3d(Val1,Val2,Val3,size=7,col=pal[i]))
 }
 ```
@@ -163,11 +162,11 @@ df2$id <- read.csv("Downloads/nightOrthoExpr.csv")[,1]
 df1 <- df1[order(df1$Val1,df1$Val2,df1$Val3), ]
 df2 <- df2[match(df1$id, df2$id), ]
 
-for (i in 1:num_datapoint) {
+for (i in 1:n) {
   with(df1[i,],points3d(Val1,Val2,Val3,size=7,col=pal[i], alpha=.1))
 }
 
-for (i in 1:num_datapoint) {
+for (i in 1:n) {
   with(df2[i,],points3d(Val1,Val2,Val3,size=7,col=pal[i]))
 }
 ```
