@@ -19,7 +19,7 @@ Gene expression profiles are often used to find patterns among co-regulated gene
 
 The  following text provides an overview of gene expression analysis workflow with ManiNetCluster describing both gene clustering and  alignment. The workflow of ManiNetCluster is depicted in the figure below:
 
-|![](figs/tut/fig1_1.8.eps "ManiNetCluster Schematic Workflow")|
+|![](figs/tut/Screen%Shot%2018-09-07%at%3.53.01%PM.png "ManiNetCluster Schematic Workflow")|
 |:--:| 
 | *ManiNetCluster Schematic Workflow: (A) The inputs of the workflow are the two time series gene expression profiles across different conditions. The dimensions of the two datasets (i.e. the number of genes and the number of timepoints) need not be the same in each dataset. (B) From the input data, we construct the gene co-expression neighborhood networks which approximate the manifolds where the datasets are concentrated. (C) using the manifold alignment and manifold warping methods, we align the two gene expression profiles across time series in a common manifold. D) aligned data from both datasets, now embedded in the same manifold, are clustered into modules. Four types of modules are revealed in this step: conserved modules (type I), data1-specific modules (type II), data2-specific modules (type III), and function linkage modules (type IV).* |
 
