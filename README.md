@@ -1,16 +1,16 @@
 # ManiNetCluster
-Simultaneous clustering on manifold time series gene expression profiles
+A Manifold Learning Based Approach to Reveal Functional Linkages Across Multiple Gene Networks
 
 author: Nam Nguyen, Ian Blaby, Daifeng Wang
 
-date: April 12, 2018
+date: September 7, 2018
 
 ---
 To use this package, you will need both the R statistical computing environment (version 3.4.1 or later) and Python (version 3.6.1 or later). The Python environment depends on numpy, scipy, matplotlib, and scikit-learn.
 
 ManiNetCluster has been tested with Mac and Linux operating systems.
 
-The following license governs the use of ManiNetCluster in academic and educational environments. Commercial use requires a commercial license from the Owner of the copyright. Please check the license.pdf file for more details.
+The following license governs the use of ManiNetCluster in academic and educational environments. Commercial use requires a commercial license from the Owner of the copyright.
 
 ---
 
@@ -59,7 +59,7 @@ ManiNetCluster is a package that takes as input two or more gene expression prof
 
 2. Align the networks incrementally in pseudo-time using manifold alignment and warping techniques 
 
-3. Cluster genes into modules of four different types (type A: conserved modules, type B, type C: specific-specific modules, type D: functional connectivity modules.
+3. Cluster genes into modules of four different types (type I: conserved modules, type II, type III: specific-specific modules, type IV: functional connectivity modules).
 
 Included  in  our  package  is  an  example dataset. These  data are published  in (1) and  describe  a day/night  timecourse  of  synchronized  cultures  of  a  green  alga.
 
@@ -93,7 +93,7 @@ Then we could add the locid of genes to the output dataframe by using this line 
 df$id <- c(read.csv("Downloads/dayOrthoExpr.csv")[,1], read.csv("Downloads/nightOrthoExpr.csv")[,1])
 ```
 
-In the code above, we would like to specify the names of datasets as ‘day’ and ‘night’, the correspondence matrix is identity as calculated previously; the dimension is 3, the method using is linear manifold (we provide other manifold which will be presented later in this tutorial); number of nearest neighbors is 6; and numbers of modules is 60.
+In the code above, we would like to specify the names of datasets as ‘day’ and ‘night’, the correspondence matrix is identity as calculated previously; the dimension is 3, the method using is linear manifold; number of nearest neighbors is 6; and numbers of modules is 60.
 
 The output is the dataframe as follow:
 
@@ -105,6 +105,7 @@ The output is the dataframe as follow:
 | 4 | -4.0854834 | -0.415335251 | -0.204782870 | day | 13 | Cre01.g007051 |
 | 5 | -1.4089036 | 0.462236245 | -0.069898261 | day | 8 | Cre01.g008000 |
 | 6 | -1.2170322 | -0.784766106 | -0.205207899 | day | 22 | Cre01.g010848 |
+|...|...|...|...|...|...|...|
 
 # Visualization and Comparing the non alignment and alignment results
 One method to visualize the alignment result is to use gradient color to capture the local alignment. In this method, same genes from two dataset (or genes which has correspondence to each other) are depicted by the same color. We fix one dataset and color the genes by sorting the expression level of genes by increasing order as in this code:
