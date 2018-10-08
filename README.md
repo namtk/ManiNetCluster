@@ -84,7 +84,6 @@ Other parameters could be tunes are the names of datasets, the dimension of mani
 
 ```r
 df <- ManiNetCluster(X,Y,nameX='light',nameY='dark',corr=corr,d=3L,method='linear manifold',k_NN=6L,k_medoids=60L)
-df <- ManiNetCluster(X,Y,nameX='light',nameY='dark',corr=diag(nrow(X)),d=3L,method='linear manifold',k_NN=6L,k_medoids=60L)
 ```
 
 Then we could add the locid of genes to the output dataframe by using this line of code:
