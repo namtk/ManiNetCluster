@@ -61,7 +61,7 @@ ManiNetCluster is a package that takes as input two or more gene expression prof
 
 3. Cluster genes into modules of four different types (type I: conserved modules, type II, type III: specific-specific modules, type IV: functional connectivity modules).
 
-Included  in  our  package  is  an  example dataset. These  data are published  in (1) and  describe  a day/night  timecourse  of  synchronized  cultures  of  a  green  alga.
+Included  in  our  package  is  an  example dataset. These  data are published  in (1) and  describe  a light/dark  timecourse  of  synchronized  cultures  of  a  green  alga.
 
 We provided here the sample data of time series gene expression data of Chlamydomonas reinhardtii. The full dataset includes more than 17000 genes but in this example, to demonstrate cross-species comparison, we have limited the data to genes which have orthologs (as determined by InParanoid8 (2)) by taking genes being orthologous to Arabidopsis thaliana. Users can find the data (in .csv format) in the github repository (namtk/ManiNetCluster/data/).
 
@@ -83,8 +83,8 @@ corr <- Correspondence(matrix=diag(n))
 Other parameters could be tunes are the names of datasets, the dimension of manifold to output, the method, the number of nearest neighbors for approximated graph construction, and the number of modules users want to output. The example use of the function is as follow:
 
 ```r
-df <- ManiNetCluster(X,Y,nameX='day',nameY='night',corr=corr,d=3L,method='linear manifold',k_NN=6L,k_medoids=60L)
-df <- ManiNetCluster(X,Y,nameX='day',nameY='night',corr=diag(nrow(X)),d=3L,method='linear manifold',k_NN=6L,k_medoids=60L)
+df <- ManiNetCluster(X,Y,nameX='light',nameY='dark',corr=corr,d=3L,method='linear manifold',k_NN=6L,k_medoids=60L)
+df <- ManiNetCluster(X,Y,nameX='light',nameY='dark',corr=diag(nrow(X)),d=3L,method='linear manifold',k_NN=6L,k_medoids=60L)
 ```
 
 Then we could add the locid of genes to the output dataframe by using this line of code:
@@ -93,26 +93,26 @@ Then we could add the locid of genes to the output dataframe by using this line 
 df$id <- c(read.csv("Downloads/dayOrthoExpr.csv")[,1], read.csv("Downloads/nightOrthoExpr.csv")[,1])
 ```
 
-In the code above, we would like to specify the names of datasets as ‘day’ and ‘night’, the correspondence matrix is identity as calculated previously; the dimension is 3, the method using is linear manifold; number of nearest neighbors is 6; and numbers of modules is 60.
+In the code above, we would like to specify the names of datasets as ‘light’ and ‘dark’, the correspondence matrix is identity as calculated previously; the dimension is 3, the method using is linear manifold; number of nearest neighbors is 6; and numbers of modules is 60.
 
 The output is the dataframe as follow:
 
 | | Val1 | Val2 | Val3 | data | module | id |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | -2.6434931 | -0.146657079 | 0.008016877 | day | 15 | Cre01.g002200 |
-| 2 | -1.6242314 | 0.302633402 | 0.080689364 | day | 19 | Cre01.g002350 |
-| 3 | -1.4356133 | -0.768342141 | 0.001276283 | day | 27 | Cre01.g003376 |
-| 4 | -4.0854834 | -0.415335251 | -0.204782870 | day | 13 | Cre01.g007051 |
-| 5 | -1.4089036 | 0.462236245 | -0.069898261 | day | 8 | Cre01.g008000 |
-| 6 | -1.2170322 | -0.784766106 | -0.205207899 | day | 22 | Cre01.g010848 |
+| 1 | -2.6434931 | -0.146657079 | 0.008016877 | light | 15 | Cre01.g002200 |
+| 2 | -1.6242314 | 0.302633402 | 0.080689364 | light | 19 | Cre01.g002350 |
+| 3 | -1.4356133 | -0.768342141 | 0.001276283 | light | 27 | Cre01.g003376 |
+| 4 | -4.0854834 | -0.415335251 | -0.204782870 | light | 13 | Cre01.g007051 |
+| 5 | -1.4089036 | 0.462236245 | -0.069898261 | light | 8 | Cre01.g008000 |
+| 6 | -1.2170322 | -0.784766106 | -0.205207899 | light | 22 | Cre01.g010848 |
 |...|...|...|...|...|...|...|
 
 # Visualization and Comparing the non alignment and alignment results
 One method to visualize the alignment result is to use gradient color to capture the local alignment. In this method, same genes from two dataset (or genes which has correspondence to each other) are depicted by the same color. We fix one dataset and color the genes by sorting the expression level of genes by increasing order as in this code:
 
 ```r
-df1 <- df[df$data == 'day',]
-df2 <- df[df$data == 'night',]
+df1 <- df[df$data == 'light',]
+df2 <- df[df$data == 'dark',]
 df1 <- df1[order(df1$Val1,df1$Val2,df1$Val3), ]
 df2 <- df2[match(df1$id, df2$id), ]
 ```
@@ -129,9 +129,9 @@ for (i in 1:n) {
 
 Using the above, the data points of dataset 1 will form a rainbow cloud as depicted in the figure below:
 
-|![](figs/tut/Screen%20Shot%202018-05-03%20at%2012.58.19%20AM.png "day time gene expression when applying linear manifold")|
+|![](figs/tut/Screen%20Shot%202018-05-03%20at%2012.58.19%20AM.png "light period gene expression when applying linear manifold")|
 |:--:| 
-| *day time gene expression when applying linear manifold* |
+| *light period gene expression when applying linear manifold* |
 
 If the two datasets are well aligned, we will see the two things: (1) the range of color will keep the same order, and (2) the scale of the plot will approximate the scale of dataset 1 plot. This is because the objective function of manifold alignment/warping tries to minimize both local similarity (depicted by color of the neighborhood) and the global distance between two datasets (depicted by the range of plot). The code and the plot are as follows:
 
@@ -141,15 +141,15 @@ for (i in 1:n) {
 }
 ```
 
-|![](figs/tut/Screen%20Shot%202018-05-03%20at%2012.59.20%20AM.png "night time gene expression when applying linear manifold")|
+|![](figs/tut/Screen%20Shot%202018-05-03%20at%2012.59.20%20AM.png "dark period gene expression when applying linear manifold")|
 |:--:| 
-| *night time gene expression when applying linear manifold* |
+| *dark period gene expression when applying linear manifold* |
 
 Additionally, we can plot them in the same coordinators as follow:
 
-|![](figs/tut/Screen%20Shot%202018-05-03%20at%201.01.55%20AM.png "day and night time gene expression when applying linear manifold")|
+|![](figs/tut/Screen%20Shot%202018-05-03%20at%201.01.55%20AM.png "light and dark period gene expression when applying linear manifold")|
 |:--:| 
-| *day and night time gene expression when applying linear manifold* |
+| *light and dark period gene expression when applying linear manifold* |
 
 From these plots, it is apparent that the alignment is good because the range of color (local similarity) and the scale of plot (global distance) is preserved. We can compare this alignment result with unalignment one. To plot the original datasets we use PCA, the code is as follows:
 
@@ -178,21 +178,21 @@ for (i in 1:n) {
 
 Below is the plot of dataset 1:
 
-|![](figs/tut/Screen%20Shot%202018-05-03%20at%201.06.02%20AM.png "day time gene expression when applying PCA")|
+|![](figs/tut/Screen%20Shot%202018-05-03%20at%201.06.02%20AM.png "light period gene expression when applying PCA")|
 |:--:| 
-| *day time gene expression when applying PCA* |
+| *light period gene expression when applying PCA* |
 
 And dataset 2 is as follows:
 
-|![](figs/tut/Screen%20Shot%202018-05-03%20at%201.07.02%20AM.png "night time gene expression when applying PCA")|
+|![](figs/tut/Screen%20Shot%202018-05-03%20at%201.07.02%20AM.png "dark period gene expression when applying PCA")|
 |:--:| 
-| *night time gene expression when applying PCA* |
+| *dark period gene expression when applying PCA* |
 
 When plotted simultaneously:
 
-|![](figs/tut/Screen%20Shot%202018-05-03%20at%201.09.37%20AM.png "day and night time gene expression when applying PCA")|
+|![](figs/tut/Screen%20Shot%202018-05-03%20at%201.09.37%20AM.png "light and dark period gene expression when applying PCA")|
 |:--:| 
-| *day and night time gene expression when applying PCA* |
+| *light and dark period gene expression when applying PCA* |
 
 This plot demonstrates poor alignment as indicated by absence of scale and color gradient preservation. Thus, the results of alignment, inspected by visualization, is proved to be better than pure PCA.
 
