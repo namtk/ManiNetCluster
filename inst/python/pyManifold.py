@@ -693,7 +693,7 @@ def ManiNetCluster(X,Y,nameX=None,nameY=None,corr=None,d=3,method='linear manifo
   
   Wx = neighbor_graph(X, k=k_NN)
   Wy = neighbor_graph(Y, k=k_NN)
-  aligners = {
+  lin_aligners = {
     'no alignment':     (lambda: TrivialAlignment(X,Y)),
     'affine':           (lambda: Affine(X,Y,corr,d)),
     'procrustes':       (lambda: Procrustes(X,Y,corr,d)),
@@ -701,8 +701,9 @@ def ManiNetCluster(X,Y,nameX=None,nameY=None,corr=None,d=3,method='linear manifo
     'cca_v2':           (lambda: CCAv2(X,Y,d)),
     'linear manifold':  (lambda: ManifoldLinear(X,Y,corr,d,Wx,Wy)),
     'ctw':              (lambda: ctw(X,Y,d)[1]),
-    'manifold warping': (lambda: manifold_warping_linear(X,Y,d,Wx,Wy)[1]),
-
+    'manifold warping': (lambda: manifold_warping_linear(X,Y,d,Wx,Wy)[1])
+  }
+  other_aligners = {
     'dtw':              (lambda: (X, dtw(X,Y).warp(X))),
     'nonlinear manifold aln':
                         (lambda: manifold_nonlinear(X,Y,corr,d,Wx,Wy)),
@@ -713,13 +714,19 @@ def ManiNetCluster(X,Y,nameX=None,nameY=None,corr=None,d=3,method='linear manifo
   }
   # fig = pyplot.figure()
   # with Timer(method):
-  Xnew, Ynew = aligners[method]().project(X, Y)
+  
+  if method in lin_aligners:
+    Xnew, Ynew = lin_aligners[method]().project(X, Y)
+  else:
+    Xnew, Ynew = other_aligners[method]()
   # print (' sum sq. error =', pairwise_error(Xnew, Ynew, metric=SquaredL2))
   # show_alignment(Xnew, Ynew, title=method)
   # pyplot.draw()
   # pyplot.show()
   # fig.savefig(time.strftime("%Y%m%d-%H%M%S")+'.pdf')W = np.concatenate((Xnew, Ynew), axis=0)
   W = np.concatenate((Xnew, Ynew), axis=0) # Matrix containing both X and Y
+  df_W = pd.DataFrame(W)
+  df_W = df_W.add_prefix('Val')
   # distance matrix
   D = pairwise_distances(W, metric='euclidean')
   # split into 60 clusters
@@ -732,6 +739,8 @@ def ManiNetCluster(X,Y,nameX=None,nameY=None,corr=None,d=3,method='linear manifo
         C_label[point_idx] = label
         
   X_or_Y = np.repeat(np.array([nameX,nameY]), [Xnew.shape[0], Ynew.shape[0]], axis=0)
-  df = pd.DataFrame({'module':C_label, 'data':X_or_Y, 'Val1':W[:,0], 'Val2':W[:,1], 'Val3':W[:,2]})#, 'id':df_in1[df_in1.columns[0]].tolist()+df_in2[df_in2.columns[0]].tolist()})
+  df = pd.DataFrame({'module':C_label, 'data':X_or_Y})
+  df = pd.concat([df, df_W], axis=1)
+  # 'Val1':W[:,0], 'Val2':W[:,1], 'Val3':W[:,2]})#, 'id':df_in1[df_in1.columns[0]].tolist()+df_in2[df_in2.columns[0]].tolist()})
   return df#, C_label#, pairwise_error(Xnew, Ynew, metric=SquaredL2)#, pyplot.show
   
