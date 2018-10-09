@@ -92,7 +92,11 @@ Then we could add the locid of genes to the output dataframe by using this line 
 df$id <- c(read.csv("Downloads/dayOrthoExpr.csv")[,1], read.csv("Downloads/nightOrthoExpr.csv")[,1])
 ```
 
-In the code above, we would like to specify the names of datasets as ‘light’ and ‘dark’, the correspondence matrix is identity as calculated previously; the dimension is 3, the method using is linear manifold; number of nearest neighbors is 6; and numbers of modules is 60.
+In the code above, we would like to specify the names of datasets as ‘light’ and ‘dark’, the correspondence matrix is identity as calculated previously; the dimension is 3, the method using is linear manifold alignment; number of nearest neighbors is 6; and numbers of modules is 60. Other methods could be used are:
+* 'cca':  canonical-correlation analysis
+* 'manifold warping': manifold warping 
+* 'nonlinear manifold aln': nonlinear manifold alignment
+* 'nonlinear manifold warp': nonlinear manifold warping
 
 The output is the dataframe as follow:
 
